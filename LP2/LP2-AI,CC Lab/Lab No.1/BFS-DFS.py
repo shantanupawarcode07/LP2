@@ -1,18 +1,18 @@
+# Online Python compiler (interpreter) to run Python online.
 import random
-
-def bfs(graph, start, visited=None):
+    # to keep track of whether a vertex is discovered or not
+def bfs(graph, queue, visited=None):
     if visited is None:
         visited = set()
-    queue = [start]
-    visited.add(start)
-    print(start)
-    while queue:
-        current = queue.pop(0)
-        for neighbor in graph[current] - visited:
-            print(neighbor)
-            queue.append(neighbor)
-            visited.add(neighbor)
-    return visited
+    if not queue:
+        return visited
+    current = queue.pop(0)
+    visited.add(current)
+    print(current)
+    for neighbor in graph[current] - visited:
+        queue.append(neighbor)
+    return bfs(graph, queue, visited)
+ 
 
 def dfs(graph, start, visited=None):
     if visited is None:
@@ -48,7 +48,8 @@ def main():
         if choice == '1':
             start_node = input("Enter the start node for BFS: ")
             print("BFS Traversal:")
-            bfs(graph, start_node)
+            queue=[start_node];
+            bfs(graph,queue)
         elif choice == '2':
             start_node = input("Enter the start node for DFS: ")
             print("DFS Traversal:")
